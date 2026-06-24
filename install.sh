@@ -26,12 +26,14 @@ if ! have node; then
   corepack enable 2>/dev/null || true
 fi
 
-# --- personal / secret config from the NAS (kept OUT of this public repo) ---
+# --- personal Claude config + skills from the NAS (kept OUT of this public repo) ---
 PRIV=/hdd_nas/dev_config
-[ -f "$PRIV/CLAUDE.md" ]     && ln -sf "$PRIV/CLAUDE.md"     ~/.claude/CLAUDE.md
-[ -f "$PRIV/settings.json" ] && ln -sf "$PRIV/settings.json" ~/.claude/settings.json
-[ -d "$PRIV/claude-rules" ]  && ln -sfn "$PRIV/claude-rules" ~/.claude/rules
-[ -f "$PRIV/.gitconfig" ]    && cp "$PRIV/.gitconfig" ~/.gitconfig
+[ -f "$PRIV/CLAUDE.md" ]      && ln -sf  "$PRIV/CLAUDE.md"      ~/.claude/CLAUDE.md
+[ -f "$PRIV/settings.json" ]  && ln -sf  "$PRIV/settings.json"  ~/.claude/settings.json
+[ -d "$PRIV/claude-rules" ]   && ln -sfn "$PRIV/claude-rules"   ~/.claude/rules
+[ -d "$PRIV/claude-skills" ]  && ln -sfn "$PRIV/claude-skills"  ~/.claude/skills
+[ -d "$PRIV/claude-plugins" ] && ln -sfn "$PRIV/claude-plugins" ~/.claude/plugins
+[ -f "$PRIV/.gitconfig" ]     && cp "$PRIV/.gitconfig" ~/.gitconfig
 
 # --- generic git config fallback (public-safe) ---
 git config --global init.defaultBranch main

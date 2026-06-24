@@ -1,28 +1,30 @@
 # dotfiles
 
 Bootstrap for Anvil Coder / dev workspaces. Coder clones this to `~/.dotfiles` on
-workspace start and runs `install.sh`, which installs CLI tools and wires in
-personal config.
+workspace start and runs `install.sh` (must stay executable: `git update-index --chmod=+x install.sh`).
 
 ## Tools installed
 kubectl 1.34.7, kubeseal 0.36.6, helm, gh, uv, node (nvm LTS), Claude Code.
 
-## Public on purpose
-Coder clones this **before** your SSH key exists, so it must be public -> **no
-secrets here**. Personal/secret config lives on the NAS and is symlinked in by
-`install.sh`:
+## Public on purpose -> NO secrets here
+Coder clones this **before** your SSH key exists, so it must be public. Personal
+and secret config live on the NAS and are symlinked in by `install.sh`:
 
 ```
 /hdd_nas/dev_config/
-  CLAUDE.md         -> ~/.claude/CLAUDE.md      (your global Claude profile)
-  settings.json     -> ~/.claude/settings.json  (permission allowlist, etc.)
+  CLAUDE.md         -> ~/.claude/CLAUDE.md       (global Claude profile)
+  settings.json     -> ~/.claude/settings.json   (permission allowlist, hooks)
   claude-rules/     -> ~/.claude/rules
-  .gitconfig        -> ~/.gitconfig              (optional)
+  claude-skills/    -> ~/.claude/skills           (your custom skills)
+  claude-plugins/   -> ~/.claude/plugins
+  .gitconfig        -> ~/.gitconfig               (optional)
 ```
 
-Seed that folder once (it persists + is shared across workspaces). Claude Code
-**auth** is not stored here -- run `claude` and log in once per workspace.
+Seed that folder once (persists + shared across workspaces). Claude Code **auth**
+is NOT stored here -- run `claude` and log in once per workspace. MCP servers:
+re-add with `claude mcp add ...` or a project-level `.mcp.json` (mind any tokens).
 
 ## Wire it up
-Coder -> Account Settings -> Dotfiles -> `https://github.com/David-Antolick/dotfiles`
-(or set the "Dotfiles repo" param when creating a workspace).
+Set the **"Dotfiles repo" parameter when creating a workspace**
+(`https://github.com/David-Antolick/dotfiles`), or run once in an existing one:
+`coder dotfiles https://github.com/David-Antolick/dotfiles`.
